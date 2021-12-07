@@ -1,3 +1,5 @@
+using System.Security.Cryptography;
+
 namespace Properties
 {
     using System;
@@ -7,9 +9,10 @@ namespace Properties
     /// </summary>
     public class Card
     {
-        private readonly string seed;
-        private readonly string name;
-        private readonly int ordinal;
+        public string Seed { get; private set; }
+        public string Name { get; private set; }
+        public int Ordinal { get; private set; }
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Card"/> class.
@@ -19,9 +22,9 @@ namespace Properties
         /// <param name="ordinal">the ordinal number of the card.</param>
         public Card(string name, string seed, int ordinal)
         {
-            this.name = name;
-            this.ordinal = ordinal;
-            this.seed = seed;
+            Name = name;
+            Ordinal = ordinal;
+            Seed = seed;
         }
 
         /// <summary>
@@ -32,33 +35,18 @@ namespace Properties
         {
         }
 
-        // TODO improve
-        public string GetSeed()
-        {
-            return this.seed;
-        }
 
-        // TODO improve
-        public string GetName()
-        {
-            return this.name;
-        }
-
-        // TODO improve
-        public int GetOrdinal()
-        {
-            return this.ordinal;
-        }
 
         /// <inheritdoc cref="object.ToString"/>
-        public override string ToString()
-        {
-            // TODO understand string interpolation
-            return $"{this.GetType().Name}(Name={this.GetName()}, Seed={this.GetSeed()}, Ordinal={this.GetOrdinal()})";
-        }
+        public override string ToString() => $"{this.GetType().Name}(Name={Name}, Seed={Seed}, Ordinal={Ordinal})";
+        
 
         // TODO generate Equals(object obj)
-
+        public override bool Equals(object obj) => (((Card)obj).Name.Equals(Name) && ((Card)obj).Seed.Equals(Seed)) ? true : false;
+        
         // TODO generate GetHashCode()
+        public override  int GetHashCode() => (Name + Seed + Ordinal.ToString()).GetHashCode();
+        
+        
     }
 }
