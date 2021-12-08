@@ -60,10 +60,9 @@ namespace Calculus
 
         public override string ToString()
         {
-            if (Value is null && Operation == null) return "null, null";
-            if (Value is null && Operation != null) return "null, " + Operation;
-            if (!(Value is null) && Operation == null) return Value + ", null";
-            return Value + ", " + Operation;
+            var v = Value is null ? "null" : Value.ToString();
+            var op = Operation is null ? "null" : Operation.ToString();
+            return v + ", " + op;
         }
 
 
